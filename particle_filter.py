@@ -5,7 +5,7 @@ import sympy as sp
 
 class Particle_filter():
 
-    def __init__(self, alpha=0.05, q=10, sigma=0.1, N=100, dynamic_model="NCA"):
+    def __init__(self, alpha=0.05, q_mult=1, sigma=0.1, N=100, dynamic_model="NCA"):
         self.target_width = None
         self.target_height = None
         self.region_width = None
@@ -24,7 +24,7 @@ class Particle_filter():
         self.dynamic_model = dynamic_model
 
         self.alpha = alpha
-        self.q = q
+        self.q_mult = q_mult
         self.sigma = sigma
         self.N = N
 
@@ -65,7 +65,7 @@ class Particle_filter():
         self.h_tar = extract_histogram(patch, 16, self.epanechnik_kernel)
 
         T_val = 1  # time step
-        q_val = min(self.region_height, self.region_width)*0.1
+        q_val = min(self.region_height, self.region_width)*self.q_mult
         Q_i = np.array(Q_iS.subs({T: T_val, q: q_val}).evalf(), dtype=np.float32)
         self.Q_i = Q_i
 

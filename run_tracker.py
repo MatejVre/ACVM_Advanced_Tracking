@@ -8,7 +8,7 @@ from particle_filter import Particle_filter
 all_failures = 0
 all_fps = []
 names = [n for n in os.listdir("vids/")]
-# names = ["basketball"]
+names = ["basketball"]
 for name in names:
     # set the path to directory where you have the sequences
     dataset_path = 'vids' # TODO: set to the dataet path on your disk
@@ -34,7 +34,7 @@ for name in names:
 
     n_bins = [8, 16, 20]
     # parameters = MSParams(1, 0.1, 40, 0, 20)
-    tracker = Particle_filter(dynamic_model="NCA")
+    tracker = Particle_filter(q_mult=0.1, dynamic_model="NCV")
     #parameters = MSParams()
     #tracker = MeanShiftTracker(parameters)
 
